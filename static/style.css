@@ -8,10 +8,6 @@ Application Specific Styles
   text-align: center;
 }
 
-#results {
-  font-family: "Courier New", Courier, monospace;
-}
-
 header form input[type="search"] {
   text-align: center;
 }
@@ -19,6 +15,10 @@ header form input[type="search"] {
 .info {
   font-size: 1.1rem;
   margin-bottom: 3rem;
+}
+
+#map {
+  height: calc(100vh - 20rem)
 }
 
 /*******************************************************************************

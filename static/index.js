@@ -1,15 +1,44 @@
 async function _searchHandler(event) {
   event.preventDefault();
   event.stopPropagation();
+  $("#results").html("<h3>Analysing...</h3>");
   const query = document.querySelector("input[type=search]").value;
   const link = document.querySelector("#mapLink");
   link.href = `https://nominatim.openstreetmap.org/search.php?polygon_geojson=1n&q=${query}`;
   try {
-    const rects = await searchAndTile(query);
-    const output = rects.map((r) => JSON.stringify(r, null, 2)).join("<br>");
-    document.querySelector("#results").innerHTML = output;
+    const results = await searchAndTile(query);
+    window.results = results;
+
+    // Summary
+    const dataStr = encodeURIComponent(JSON.stringify(results.tiles));
+    const fname = `${query}.geojson`;
+    $("#results").html(
+      $(`<p>
+        Tiled with ${results.tiles.features.length} squares: 
+        <a href="data:text/json;charset=utf-8,${dataStr}" download="${fname}">${fname}</a>
+      </p>`),
+    );
+
+    // Map
+    const center = turf.center(results.region).geometry.coordinates;
+    const bbox = turf.bbox(results.region);
+    const zoom = 10;
+    $("#results").append($(`<div id="map"></div>`));
+    const map = L.map("map", { center: [center[1], center[0]], zoom });
+    map.fitBounds([
+      [bbox[1], bbox[0]],
+      [bbox[3], bbox[2]],
+    ]);
+    window.map = map;
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "© OpenStreetMap",
+    }).addTo(map);
+    L.geoJSON(results.region).addTo(map);
+    L.geoJSON(results.tiles).addTo(map);
   } catch (err) {
-    document.querySelector("#results").innerHTML = JSON.stringify(err, null, 2);
+    document.querySelector("#results").innerText =
+      "Analysis Failed, search term probably did not return useful data. Please check spelling.";
     console.error(err);
   }
 }
@@ -24,14 +53,9 @@ async function _searchHandler(event) {
  * @param {boolean=true} round Whether to round output coordinates to strides precision
  * @returns {number[][]} List of rectangles in the form [x, y, x2, y2]
  */
-async function searchAndTile(query, stride = 0.01, round = true) {
+async function searchAndTile(query, stride = 0.005) {
   const poly = await searchForGeoPolygon(query);
-  let rects = tileGeoPolygon(poly, stride);
-  if (round) {
-    const exp = 10 / stride;
-    rects = rects.map((r) => r.map((p) => Math.round(p * exp) / exp));
-  }
-  return rects;
+  return tileGeoPolygon(poly, stride);
 }
 
 /**
@@ -86,21 +110,23 @@ function tileGeoPolygon(poly, stride) {
     let y = startY;
     while (y + stride < polyMaxY) {
       // Check if rectangle is complexly within polygon
-      const rect = [x, y, x + stride, y + stride];
-      const rectTurf = turf.bboxPolygon(rect);
+      const rectBB = [x, y, x + stride, y + stride];
+      const rectTurf = turf.bboxPolygon(rectBB);
       if (turf.booleanWithin(rectTurf, polyTurf)) {
-        rects.push(rect);
-        // console.log("Inside: ", rect);
+        rects.push(rectTurf);
+        // console.log("Inside: ", rectBB);
       } else {
-        // console.log("Outside: ", rect);
+        // console.log("Outside: ", rectBB);
       }
       possible++;
       y += stride;
     }
     x += stride;
   }
-  console.log(
-    `Tiled with ${rects.length} rectangles out of ${possible} possible`,
-  );
-  return rects;
+  return {
+    region: polyTurf,
+    tiles: turf.featureCollection(rects),
+    stride,
+    possible,
+  };
 }
