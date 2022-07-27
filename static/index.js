@@ -2,6 +2,8 @@ async function _searchHandler(event) {
   event.preventDefault();
   event.stopPropagation();
   const query = document.querySelector("input[type=search]").value;
+  const link = document.querySelector("#mapLink");
+  link.href = `https://nominatim.openstreetmap.org/search.php?polygon_geojson=1n&q=${query}`;
   try {
     const rects = await searchAndTile(query);
     const output = rects.map((r) => JSON.stringify(r, null, 2)).join("<br>");
