@@ -18,7 +18,11 @@ header form input[type="search"] {
 }
 
 #map {
-  height: calc(100vh - 20rem)
+  height: calc(100vh - 20rem);
+}
+
+.error {
+  color: red;
 }
 
 /*******************************************************************************

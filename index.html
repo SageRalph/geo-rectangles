@@ -41,6 +41,7 @@
 
     <!-- Custom logic -->
     <link rel="stylesheet" href="./static/style.css" />
+    <script src="./static/geo.js"></script>
     <script src="./static/index.js"></script>
   </head>
 
@@ -53,7 +54,7 @@
         target="_blank"
         >Open Map</a
       >
-      <form onsubmit="_searchHandler(event)">
+      <form id="search">
         <input type="search" name="q" placeholder="Search for a city" />
         <input type="submit" />
       </form>
