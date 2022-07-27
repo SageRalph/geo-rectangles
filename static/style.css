@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+/*******************************************************************************
+Application Specific Styles
+*******************************************************************************/
+
+#results {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+}
+
+/*******************************************************************************
+Layout
+*******************************************************************************/
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  background-color: rgb(255, 255, 255);
+}
+
+#content {
+  margin: auto;
+  margin-top: 5rem;
+  max-width: 80rem;
+  padding: 1rem;
+  /* padding-top: 5rem; */
+  /* padding-bottom: 10rem; */
+}
+
+header {
+  padding: 1.5rem 5%;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  margin: 0;
+  padding: 0;
+  cursor: default;
+  float: left;
+}
+
+header a {
+  font-size: 1.5rem;
+  margin: 0 4.5rem;
+  /* margin-right: 2rem; */
+  padding: 0;
+  float: right;
+  color: #67b1bb;
+}
+
+header > img,
+header > h1 {
+  display: inline-block;
+}
+
+header form {
+  display: inline-block;
+  margin: auto;
+  width: calc(100% - 50rem);
+  max-width: 80rem;
+}
+
+header form input[type="search"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin: -0.25rem;
+  font-size: 1rem;
+}
+
+header form input[type="submit"] {
+  display: none;
+}
+
+header,
+footer {
+  background: #031926;
+  color: aliceblue;
+  z-index: 1000;
+}
+
+a {
+  text-decoration: none;
+  color: blue;
+  cursor: pointer;
+}
+
+/*******************************************************************************
+Narrow Screens
+*******************************************************************************/
+
+@media screen and (max-width: 1200px) {
+  header {
+    padding: 1rem;
+    text-align: center;
+  }
+  header > h1,
+  header > a {
+    font-size: 1rem;
+    margin: 0;
+  }
+  header form {
+    margin: 1rem 0 0.5rem 0;
+    width: 100%;
+  }
+  #content {
+    margin-top: 6.5rem;
+  }
+  #content > h1,
+  #content > h3 {
+    margin: 2rem 1rem;
+    text-align: center;
+  }
+  .link_button {
+    margin: 1rem;
+    margin-bottom: 5rem;
+    font-size: 1.2rem;
+    padding: 3rem;
+    text-align: center;
+  }
+  li {
+    text-align: left;
+  }
+  .nowrap {
+    white-space: normal;
+  }
+}

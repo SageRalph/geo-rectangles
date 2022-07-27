@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta charset="utf-8" />
+    <title>Geo Rectangles</title>
+    <meta name="title" content="Geo Rectangles" />
+    <meta name="description" content="Geo Rectangles" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Geo Rectangles" />
+    <meta property="og:description" content="Geo Rectangles" />
+    <meta name="theme-color" content="#031926" />
+    <!-- <link rel="icon" type="image/svg" href="../favicon.svg" />
+    <link rel="icon" type="image/png" href="../favicon.png" />
+    <link rel="apple-touch-icon" href="../favicon.png" />
+    <link rel="manifest" href="../manifest.json" /> -->
+    <link rel="stylesheet" href="./static/style.css" />
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+    <script src="./static/index.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <h1 id="banner">Geo Rectangles</h1>
+      <form onsubmit="_searchHandler(event)">
+        <input type="search" name="q" placeholder="Search for a city" />
+        <input type="submit" />
+      </form>
+      <a href="https://nominatim.openstreetmap.org/search.php" target="_blank"
+        >Open Map</a
+      >
+    </header>
+    <a name="top"></a>
+    <main id="content">
+      <div id="results"></div>
+    </main>
+  </body>
+</html>
