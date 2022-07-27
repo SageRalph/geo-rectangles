@@ -4,9 +4,21 @@
 Application Specific Styles
 *******************************************************************************/
 
-#results {
+#content {
   text-align: center;
+}
+
+#results {
   font-family: "Courier New", Courier, monospace;
+}
+
+header form input[type="search"] {
+  text-align: center;
+}
+
+.info {
+  font-size: 1.1rem;
+  margin-bottom: 3rem;
 }
 
 /*******************************************************************************
@@ -60,7 +72,7 @@ header h1 {
 
 header a {
   font-size: 1.5rem;
-  margin: 0 4.5rem;
+  margin: 0 1rem;
   /* margin-right: 2rem; */
   padding: 0;
   float: right;

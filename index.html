@@ -23,16 +23,23 @@
   <body>
     <header>
       <h1 id="banner">Geo Rectangles</h1>
+      <a href="https://nominatim.openstreetmap.org/search.php" target="_blank"
+        >Open Map</a
+      >
       <form onsubmit="_searchHandler(event)">
         <input type="search" name="q" placeholder="Search for a city" />
         <input type="submit" />
       </form>
-      <a href="https://nominatim.openstreetmap.org/search.php" target="_blank"
-        >Open Map</a
-      >
     </header>
     <a name="top"></a>
     <main id="content">
+      <article class="info">
+        <p>
+          Generate a list of rectangles that fit entirely within a region's
+          boundary.
+        </p>
+        <p>Powered by Open Street Map and Turf.js.</p>
+      </article>
       <div id="results"></div>
     </main>
   </body>
